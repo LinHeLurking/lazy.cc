@@ -4,7 +4,7 @@
 
 This repository contains some tricky c++ helpers for a lazy man.
 
-## Core Lines for Copy
+## Core Lines to Copy
 
 ```cpp
 #include <bits/stdc++.h>
