@@ -13,7 +13,7 @@ template <class T>
 using MinHeap = std::priority_queue<T, std::vector<T>, std::greater<T>>;
 
 template <class T, class Comparator>
-auto CreateHeap(Comparator&& comp) {
+auto CreateHeap(const Comparator& comp) {
   return std::priority_queue<T, std::vector<T>, Comparator>(comp);
 }
 
