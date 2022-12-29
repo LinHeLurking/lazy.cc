@@ -33,7 +33,7 @@ void SimpleHeapExample() {
 }
 
 void CustomHeapExample() {
-  auto q = _::CreateHeap<std::vector<int>>([](auto &&l, auto &&r) {
+  auto q = _::CreateHeap<std::vector<int>>([](const auto &l, const auto &r) {
     return l[0] != r[0] ? l[0] < r[0] : l[1] > r[1];
   });
   q.push({1, 2});
