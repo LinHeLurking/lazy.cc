@@ -6,22 +6,22 @@
 namespace _ {
 
 template <class Container>
-void Sort(Container &&container) {
+void Sort(Container &container) {
   std::sort(container.begin(), container.end());
 }
 
 template <class Container, class Comparator>
-void Sort(Container &&container, Comparator comp) {
+void Sort(Container &container, Comparator comp) {
   std::sort(container.begin(), container.end(), comp);
 }
 
 template <class Container>
-void StableSort(Container &&container) {
+void StableSort(Container &container) {
   std::stable_sort(container.begin(), container.end());
 }
 
 template <class Container, class Comparator>
-void StableSort(Container &&container, Comparator comp) {
+void StableSort(Container &container, Comparator comp) {
   std::stable_sort(container.begin(), container.end(), comp);
 }
 
