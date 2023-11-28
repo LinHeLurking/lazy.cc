@@ -4,7 +4,7 @@ project(lazy-example)
 cmake_policy(SET CMP0135 NEW)
 set(CMAKE_CXX_STANDARD 17)
 
-if (BUILD_TESTS)
+if (LAZY_BUILD_TESTS)
     include(FetchContent)
     FetchContent_Declare(
             googletest
@@ -25,4 +25,5 @@ if (BUILD_TESTS)
 
     add_test(test_sort test/test_sort.cc)
     add_test(test_heap test/test_heap.cc)
+    add_test(test_unroll test/test_unroll.cc)
 endif ()
