@@ -2,12 +2,17 @@
 
 #include "lazy++.hpp"
 
-TEST(Unroll, Way_1) {
+TEST(Unroll, Way_1_Macro) {
   {
     std::vector<int> v;
     v.resize(1000);
-    size_t i = 0;
-    _::Unroll(v.size(), [&v, &i]() { v[i++] = -1; });
+    {
+      size_t i = 0;
+      M_Unroll(v.size(), {
+        v[i] = -1;
+        ++i;
+      });
+    }
     for (int k : v) {
       EXPECT_EQ(k, -1);
     }
@@ -15,28 +20,110 @@ TEST(Unroll, Way_1) {
   {
     std::vector<int> v;
     v.resize(1000);
-    _::UnrollIdx(v.size(), [&v](size_t i) { v[i] = int(i) * int(i); });
-    for (int i = 0; i < v.size(); ++i) {
-      EXPECT_EQ(v[i], int(i) * int(i)) << "i: " << i;
+    {
+      size_t i = 0;
+      M_Unroll(v.size(), {
+        v[i] = int(i) * int(i);
+        ++i;
+      });
+    }
+    for (int k = 0; k < v.size(); ++k) {
+      EXPECT_EQ(v[k], int(k) * int(k)) << "k: " << k;
     }
   }
 }
 
-TEST(Unroll, Way_4) {
+//TEST(Unroll, Way_1_Template) {
+//  {
+//    std::vector<int> v;
+//    v.resize(1000);
+//    {
+//      size_t i = 0;
+//      _::Unroll(v.size(), [&v, &i]() {
+//        v[i] = -1;
+//        i++;
+//      });
+//    }
+//    for (int k : v) {
+//      EXPECT_EQ(k, -1);
+//    }
+//  }
+//  {
+//    std::vector<int> v;
+//    v.resize(1000);
+//    {
+//      size_t i = 0;
+//      _::Unroll(v.size(), [&v, &i]() {
+//        v[i] = int(i) * int(i);
+//        ++i;
+//      });
+//    }
+//    for (int k = 0; k < v.size(); ++k) {
+//      EXPECT_EQ(v[k], int(k) * int(k)) << "k: " << k;
+//    }
+//  }
+//}
+
+TEST(Unroll, Way_4_Macro) {
   std::vector<int> v(1000, -2);
-  auto a1 = [&v](size_t i) { v[i] += 1; };
-  auto a2 = [&v](size_t i) {
-    v[i] += 1;
-    v[i + 1] += 1;
-  };
-  auto a4 = [&v](size_t i) {
-    v[i] += 1;
-    v[i + 1] += 1;
-    v[i + 2] += 1;
-    v[i + 3] += 1;
-  };
-  _::UnrollIdx(v.size(), a1, a2, a4);
-  for (int i : v) {
-    EXPECT_EQ(i, -1);
+  {
+    size_t i = 0;
+    M_Unroll4(
+        v.size(),
+        {
+          v[i]++;
+          i++;
+        },
+        {
+          v[i]++;
+          i++;
+          v[i]++;
+          i++;
+        },
+        {
+          v[i]++;
+          i++;
+          v[i]++;
+          i++;
+          v[i]++;
+          i++;
+          v[i]++;
+          i++;
+        });
+  }
+  for (int k : v) {
+    EXPECT_EQ(k, -1);
   }
 }
+
+//TEST(Unroll, Way_4_Temaplte) {
+//  std::vector<int> v(1000, -2);
+//  {
+//    size_t i = 0;
+//    _::Unroll(
+//        v.size(),
+//        [&v, &i]() {
+//          v[i]++;
+//          i++;
+//        },
+//        [&v, &i]() {
+//          v[i]++;
+//          i++;
+//          v[i]++;
+//          i++;
+//        },
+//        [&v, &i]() {
+//          v[i]++;
+//          i++;
+//          v[i]++;
+//          i++;
+//          v[i]++;
+//          i++;
+//          v[i]++;
+//          i++;
+//        });
+//  }
+//  for (int k : v) {
+//    EXPECT_EQ(k, -1);
+//  }
+//}

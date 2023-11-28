@@ -14,7 +14,5 @@
 #else
 #define FORCE_INLINE inline
 #endif
-#else
-#define FORCE_INLINE inline
 
 #endif  // LAZY_EXAMPLE_FORCE_INLINE_HPP

@@ -5,6 +5,6 @@
 #include "./priority_queue.hpp"
 #include "./output.hpp"
 #include "./unroll.hpp"
-#include "force_inline.hpp"
+#include "./force_inline.hpp"
 
 #endif
