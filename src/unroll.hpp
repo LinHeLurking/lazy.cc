@@ -1,7 +1,6 @@
 #ifndef LAZY_EXAMPLE_UNROLL_HPP
 #define LAZY_EXAMPLE_UNROLL_HPP
 
-// Using lambda is slow :) There may be some failures when inlining.
 #include "./force_inline.hpp"
 
 namespace _ {

@@ -2,8 +2,9 @@
 
 #include "lazy++.hpp"
 
+constexpr size_t n = 100000;
+
 static void BM_NaiveLoop(benchmark::State& state) {
-  size_t n = 1000;
   auto src = new int8_t[n];
   auto dst = new int8_t[n];
 
@@ -20,7 +21,6 @@ static void BM_NaiveLoop(benchmark::State& state) {
 BENCHMARK(BM_NaiveLoop);
 
 static void BM_UnrollLoop_Macro(benchmark::State& state) {
-  size_t n = 1000;
   auto src = new int8_t[n];
   auto dst = new int8_t[n];
 
@@ -52,7 +52,6 @@ static void BM_UnrollLoop_Macro(benchmark::State& state) {
 BENCHMARK(BM_UnrollLoop_Macro);
 
 static void BM_UnrollLoop_Template(benchmark::State& state) {
-  size_t n = 1000;
   auto src = new int8_t[n];
   auto dst = new int8_t[n];
 

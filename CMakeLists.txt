@@ -3,7 +3,7 @@ project(lazy-example)
 
 cmake_policy(SET CMP0135 NEW)
 set(CMAKE_CXX_STANDARD 17)
-
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 
 if (LAZY_BUILD_TESTS)
@@ -48,7 +48,7 @@ if (LAZY_BUILD_BENCHMARK)
 
     macro(add_bench name)
         add_executable(${name} ${ARGN})
-        target_link_libraries(${name} PRIVATE benchmark::benchmark)
+        target_link_libraries(${name} PUBLIC benchmark::benchmark)
         target_include_directories(${name} PUBLIC src)
     endmacro()
 
