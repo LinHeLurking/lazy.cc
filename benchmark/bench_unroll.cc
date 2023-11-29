@@ -82,4 +82,22 @@ static void BM_UnrollLoop_Template(benchmark::State& state) {
 }
 BENCHMARK(BM_UnrollLoop_Template);
 
+static void BM_UnrollLoop_Template_Way1(benchmark::State& state) {
+  auto src = new int8_t[n];
+  auto dst = new int8_t[n];
+
+  for (auto _ : state) {
+    std::fill(src, src + n, 0xAA);
+    int8_t *p = src, *q = dst;
+    _::Unroll(n, [&p, &q]() {
+      *q = *p & int8_t(0x80);
+      p++;
+      q++;
+    });
+  }
+  delete[] src;
+  delete[] dst;
+}
+BENCHMARK(BM_UnrollLoop_Template_Way1);
+
 BENCHMARK_MAIN();
